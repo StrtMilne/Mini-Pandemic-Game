@@ -78,7 +78,7 @@ public class PlayerTests {
         player.setCity(city1);
         player.addCardToHand(card1);
         player.charterFlight(city3);
-        assertEquals("Seoul", player.getCity().getName()); 
+        assertEquals("Seoul", player.getCity().getName());
         assertEquals(0, player.getCards().size());
     }
 }

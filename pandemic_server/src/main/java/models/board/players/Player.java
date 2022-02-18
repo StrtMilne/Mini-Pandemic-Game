@@ -14,7 +14,7 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.city = null;
-        this.cards = new ArrayList<PlayerCard>();
+        this.cards = new ArrayList<>();
     }
 
     public String getName() {
@@ -54,17 +54,9 @@ public class Player {
                  .findFirst()
                  .isPresent()) {
              this.driveFerry(arrivalCity);
-
-//             PlayerCard cardToRemove = null;
-//             for(PlayerCard card : this.cards){
-//                 if (card.getName() == arrivalCity.getName()){
-//                     cardToRemove = card;
-//                 }
-//             }
-//             this.cards.remove(cardToRemove);
              this.cards.removeIf(card -> card.getName().equals(arrivalCity.getName()));
          } else {
-
+             // Action if not possible
          }
     }
 
@@ -78,7 +70,7 @@ public class Player {
             this.cards.removeIf(card -> card.getName().equals(this.city.getName()));
             this.driveFerry(arrivalCity);
         } else {
-
+            // Acyion if not possible
         }
     };
 //    void shuttleFlight(City city);
