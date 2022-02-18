@@ -55,20 +55,32 @@ public class Player {
                  .isPresent()) {
              this.driveFerry(arrivalCity);
 
-             PlayerCard cardToRemove = null;
-             for(PlayerCard card : this.cards){
-                 if (card.getName() == arrivalCity.getName()){
-                     cardToRemove = card;
-                 }
-             }
-             this.cards.remove(cardToRemove);
+//             PlayerCard cardToRemove = null;
+//             for(PlayerCard card : this.cards){
+//                 if (card.getName() == arrivalCity.getName()){
+//                     cardToRemove = card;
+//                 }
+//             }
+//             this.cards.remove(cardToRemove);
+             this.cards.removeIf(card -> card.getName().equals(arrivalCity.getName()));
          } else {
 
          }
     }
 
 
-//    void charterFlight(CityCard cityCard);
+    public void charterFlight(City arrivalCity){
+        if (this.cards.stream()
+                .filter(card -> card.getName()
+                .equals(this.city.getName()))
+                .findFirst()
+                .isPresent()) {
+            this.cards.removeIf(card -> card.getName().equals(this.city.getName()));
+            this.driveFerry(arrivalCity);
+        } else {
+
+        }
+    };
 //    void shuttleFlight(City city);
 //    void treat();
 //    void cure();
