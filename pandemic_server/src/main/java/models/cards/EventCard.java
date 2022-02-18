@@ -10,6 +10,6 @@ public class EventCard implements PlayerCard{
 
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 }
