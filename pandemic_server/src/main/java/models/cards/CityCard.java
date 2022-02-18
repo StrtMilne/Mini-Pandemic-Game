@@ -2,9 +2,9 @@ package models.cards;
 
 public class CityCard implements PlayerCard {
 
-    private String name;
-    private double population;
-    private String colour;
+    private final String name;
+    private final double population;
+    private final String colour;
 
     public CityCard(String name, double population, String colour) {
         this.name = name;
