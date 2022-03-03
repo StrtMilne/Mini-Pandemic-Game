@@ -87,7 +87,6 @@ public class Player {
     }
 
 
-//    void treat();
 //    void cure();
 //    void shareKnowledge();
 //    void pass();
