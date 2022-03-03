@@ -3,6 +3,7 @@ package com.example.pandemicserver.BoardTests;
 import models.board.City;
 import models.board.Cube;
 import models.board.players.Player;
+import models.board.trackers.CureMarkers;
 import models.cards.CityCard;
 import models.cards.PlayerCard;
 import org.junit.Before;
@@ -20,8 +21,12 @@ public class PlayerTests {
     City city3;
     PlayerCard card1;
     PlayerCard card2;
+    PlayerCard card3;
+    PlayerCard card4;
+    PlayerCard card5;
     Cube cube1;
     Cube cube2;
+    CureMarkers cureMarkers;
 
     @Before
     public void before() {
@@ -31,8 +36,12 @@ public class PlayerTests {
         city3 = new City("Seoul", "red");
         card1 = new CityCard("London", 9, "blue");
         card2 = new CityCard("Seoul", 12, "red");
+        card3 = new CityCard("Paris", 9, "blue");
+        card4 = new CityCard("Madrid", 9, "blue");
+        card5 = new CityCard("Essen", 9, "blue");
         cube1 = new Cube("blue");
         cube2 = new Cube("blue");
+        cureMarkers = new CureMarkers();
     }
 
     @Test
@@ -146,7 +155,14 @@ public class PlayerTests {
         assertEquals(0, result);
     }
 
-//    @Test
-//    public void
+    @Test
+    public void canCureColour() {
+        player.addCardToHand(card1);
+        player.addCardToHand(card3);
+        player.addCardToHand(card4);
+        player.addCardToHand(card5);
+        player.cure("blue");
+        assertEquals(true, );
+    }
 
 }

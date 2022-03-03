@@ -19,10 +19,10 @@ public class CureMarkerTests {
 
     @Test
     public void markersStartAsFalse() {
-        assertEquals(false, curemarkers.isBlue());
-        assertEquals(false, curemarkers.isYellow());
-        assertEquals(false, curemarkers.isRed());
-        assertEquals(false, curemarkers.isBlack());
+        assertEquals(false, curemarkers.isBlueCured());
+        assertEquals(false, curemarkers.isYellowCured());
+        assertEquals(false, curemarkers.isRedCured());
+        assertEquals(false, curemarkers.isBlackCured());
     }
 
 }

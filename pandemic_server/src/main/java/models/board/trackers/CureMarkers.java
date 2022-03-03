@@ -2,47 +2,47 @@ package models.board.trackers;
 
 public class CureMarkers {
 
-    private boolean blue;
-    private boolean yellow;
-    private boolean black;
-    private boolean red;
+    private boolean blueCured;
+    private boolean yellowCured;
+    private boolean blackCured;
+    private boolean redCured;
 
     public CureMarkers() {
-        this.blue = false;
-        this.yellow = false;
-        this.black = false;
-        this.red = false;
+        this.blueCured = false;
+        this.yellowCured = false;
+        this.blackCured = false;
+        this.redCured = false;
     }
 
-    public boolean isBlue() {
-        return blue;
+    public boolean isBlueCured() {
+        return blueCured;
     }
 
-    public void setBlue(boolean blue) {
-        this.blue = blue;
+    public void setBlueCured(boolean blueCured) {
+        this.blueCured = blueCured;
     }
 
-    public boolean isYellow() {
-        return yellow;
+    public boolean isYellowCured() {
+        return yellowCured;
     }
 
-    public void setYellow(boolean yellow) {
-        this.yellow = yellow;
+    public void setYellowCured(boolean yellowCured) {
+        this.yellowCured = yellowCured;
     }
 
-    public boolean isBlack() {
-        return black;
+    public boolean isBlackCured() {
+        return blackCured;
     }
 
-    public void setBlack(boolean black) {
-        this.black = black;
+    public void setBlackCured(boolean blackCured) {
+        this.blackCured = blackCured;
     }
 
-    public boolean isRed() {
-        return red;
+    public boolean isRedCured() {
+        return redCured;
     }
 
-    public void setRed(boolean red) {
-        this.red = red;
+    public void setRedCured(boolean redCured) {
+        this.redCured = redCured;
     }
 }
