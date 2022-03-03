@@ -74,6 +74,15 @@ public class PlayerTests {
     }
 
     @Test
+    public void playerCantDirectFlightToNewCityWithoutCorrectCard() {
+        player.setCity(city1);
+        player.addCardToHand(card1);
+        player.directFlight(city3);
+        assertEquals("London", player.getCity().getName());
+        assertEquals(1, player.getCards().size());
+    }
+
+    @Test
     public void canCharterFlightToNewCity() {
         player.setCity(city1);
         player.addCardToHand(card1);
@@ -81,4 +90,46 @@ public class PlayerTests {
         assertEquals("Seoul", player.getCity().getName());
         assertEquals(0, player.getCards().size());
     }
+
+    @Test
+    public void cantCharterFlightToNewCityWithoutCorrectCard() {
+        player.setCity(city1);
+        player.addCardToHand(card2);
+        player.charterFlight(city3);
+        assertEquals("London", player.getCity().getName());
+        assertEquals(1, player.getCards().size());
+    }
+
+    @Test
+    public void canShuttleFlightToNewCity() {
+        player.setCity(city1);
+        city1.setHasResearchCentre(true);
+        city3.setHasResearchCentre(true);
+        player.shuttleFlight(player.getCity(), city3);
+        assertEquals("Seoul", player.getCity().getName());
+    }
+
+    @Test
+    public void cantShuttleFlightToNewCityIfStartHasNoResearchCentre() {
+        player.setCity(city1);
+        city3.setHasResearchCentre(true);
+        player.shuttleFlight(player.getCity(), city3);
+        assertEquals("London", player.getCity().getName());
+    }
+
+    @Test
+    public void cantShuttleFlightToNewCityIfEndHasNoResearchCentre() {
+        player.setCity(city1);
+        city1.setHasResearchCentre(true);
+        player.shuttleFlight(player.getCity(), city3);
+        assertEquals("London", player.getCity().getName());
+    }
+
+    @Test
+    public void cantShuttleFlightToNewCityINeitherHasResearchCentre() {
+        player.setCity(city1);
+        player.shuttleFlight(player.getCity(), city3);
+        assertEquals("London", player.getCity().getName());
+    }
+
 }

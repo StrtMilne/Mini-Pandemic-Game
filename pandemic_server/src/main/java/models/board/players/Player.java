@@ -53,7 +53,7 @@ public class Player {
                  .equals(arrivalCity.getName()))
                  .findFirst()
                  .isPresent()) {
-             this.driveFerry(arrivalCity);
+             this.setCity(arrivalCity);
              this.cards.removeIf(card -> card.getName().equals(arrivalCity.getName()));
          } else {
              // Action if not possible
@@ -68,11 +68,19 @@ public class Player {
                 .findFirst()
                 .isPresent()) {
             this.cards.removeIf(card -> card.getName().equals(this.city.getName()));
-            this.driveFerry(arrivalCity);
+            this.setCity(arrivalCity);
         } else {
-            // Acyion if not possible
+            // Action if not possible
         }
     };
+
+    public void shuttleFlight(City startCity, City endCity) {
+        if(startCity.getResearchCentre() && endCity.getResearchCentre()){
+            this.setCity(endCity);
+        } else {
+            // Action if not possible
+        }
+    }
 //    void shuttleFlight(City city);
 //    void treat();
 //    void cure();
