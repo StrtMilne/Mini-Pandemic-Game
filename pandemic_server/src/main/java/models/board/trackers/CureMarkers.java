@@ -45,4 +45,16 @@ public class CureMarkers {
     public void setRedCured(boolean redCured) {
         this.redCured = redCured;
     }
+
+    public void setCured(String colour) {
+        if (colour == "blue") {
+            this.blueCured = true;
+        } else if (colour == "black") {
+            this.blackCured = true;
+        } else if (colour == "red") {
+            this.redCured = true;
+        } else {
+            this.yellowCured = true;
+        }
+    }
 }

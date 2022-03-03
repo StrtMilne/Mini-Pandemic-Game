@@ -161,8 +161,24 @@ public class PlayerTests {
         player.addCardToHand(card3);
         player.addCardToHand(card4);
         player.addCardToHand(card5);
-        player.cure("blue");
-        assertEquals(true, );
+        player.cure("blue", cureMarkers);
+        assertEquals(true, cureMarkers.isBlueCured());
+    }
+
+    @Test
+    public void cantCureColourWithInsufficientCard() {
+        player.addCardToHand(card1);
+        player.addCardToHand(card2);
+        player.addCardToHand(card4);
+        player.addCardToHand(card5);
+        player.cure("blue", cureMarkers);
+        assertEquals(false, cureMarkers.isBlueCured());
+    }
+
+    @Test
+    public void cantCureColourWithNoCards() {
+        player.cure("blue", cureMarkers);
+        assertEquals(false, cureMarkers.isBlueCured());
     }
 
 }

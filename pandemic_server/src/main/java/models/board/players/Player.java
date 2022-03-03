@@ -1,6 +1,7 @@
 package models.board.players;
 
 import models.board.City;
+import models.board.trackers.CureMarkers;
 import models.cards.CityCard;
 import models.cards.PlayerCard;
 import java.util.ArrayList;
@@ -87,8 +88,18 @@ public class Player {
         this.getCity().removeCube(colour);
     }
 
+    public void cure(String colour, CureMarkers cureMarkers) {
+        long colourCount = this.cards.stream()
+                .filter(card -> card instanceof CityCard && ((CityCard) card).getColour() == colour)
+                .count();
 
-//    void cure();
+        if(colourCount >= 4) {
+            cureMarkers.setCured(colour);
+        } else {
+            // Action for insuffficient cards
+        }
+    }
+
 //    void shareKnowledge();
 //    void pass();
 
