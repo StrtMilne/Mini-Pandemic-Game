@@ -140,9 +140,13 @@ public class PlayerTests {
     @Test
     public void canTreatCity() {
         player.setCity(city1);
-        city1.addCube(cube1);
-        player.treat();
-        assertEquals(0, city1.getCubes().size());
+        city1.addCube("blue");
+        player.treat("blue");
+        int result = city1.getCubes().get("blue");
+        assertEquals(0, result);
     }
+
+//    @Test
+//    public void
 
 }

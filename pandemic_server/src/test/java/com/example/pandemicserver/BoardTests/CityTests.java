@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
@@ -49,7 +50,12 @@ public class CityTests {
 
     @Test
     public void startsWithNoCubes() {
-        assertEquals(0, city.getCubes().size());
+        HashMap<String, Integer> result = new HashMap<>();
+        result.put("blue", 0);
+        result.put("black", 0);
+        result.put("red", 0);
+        result.put("yellow", 0);
+        assertEquals(result, city.getCubes());
     }
 
     @Test
@@ -59,24 +65,27 @@ public class CityTests {
 
     @Test
     public void canAddCubeToCity() {
-        city.addCube(cube1);
-        assertEquals(1, city.getCubes().size());
+        city.addCube("blue");
+        int result = city.getCubes().get("blue");
+        assertEquals(1, result);
     }
 
     @Test
     public void canRemoveCubeFromCity() {
-        city.addCube(cube1);
-        city.removeCube();
-        assertEquals(0, city.getCubes().size());
+        city.addCube("blue");
+        city.removeCube("blue");
+        int result = city.getCubes().get("blue");
+        assertEquals(0, result);
     }
 
     @Test
-    public void cantAssCubeIfCubesOfColourAreThree() {
-        city.addCube(cube1);
-        city.addCube(cube2);
-        city.addCube(cube3);
-        city.addCube(cube4);
-        assertEquals(3, city.getCubes().size());
+    public void cantAddCubeIfCubesOfColourAreThree() {
+        city.addCube("blue");
+        city.addCube("blue");
+        city.addCube("blue");
+        city.addCube("blue");
+        int result = city.getCubes().get("blue");
+        assertEquals(3, result);
     }
 
     @Test

@@ -82,8 +82,9 @@ public class Player {
         }
     }
 
-    public void treat() {
-        this.getCity().removeCube();
+    public void treat(String colour) {
+
+        this.getCity().removeCube(colour);
     }
 
 
