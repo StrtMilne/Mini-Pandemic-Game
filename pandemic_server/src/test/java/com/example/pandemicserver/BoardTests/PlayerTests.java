@@ -193,5 +193,34 @@ public class PlayerTests {
         assertEquals(1, player2.getCards().size());
     }
 
+    @Test
+    public void cantShareKnowledgeIfPLayerINWrongCity() {
+        player.setCity(city2);
+        player.addCardToHand(card1);
+        player2.setCity(city1);
+        player.shareKnowledge(player2, (CityCard) card1);
+        assertEquals(1, player.getCards().size());
+        assertEquals(0, player2.getCards().size());
+    }
+
+    @Test
+    public void cantShareKnowledgeIfOtherPLayerINWrongCity() {
+        player.setCity(city1);
+        player.addCardToHand(card1);
+        player2.setCity(city2);
+        player.shareKnowledge(player2, (CityCard) card1);
+        assertEquals(1, player.getCards().size());
+        assertEquals(0, player2.getCards().size());
+    }
+
+    @Test
+    public void cantShareKnowledgeIfWrongCard() {
+        player.setCity(city1);
+        player.addCardToHand(card2);
+        player2.setCity(city1);
+        player.shareKnowledge(player2, (CityCard) card2);
+        assertEquals(1, player.getCards().size());
+        assertEquals(0, player2.getCards().size());
+    }
 
 }
