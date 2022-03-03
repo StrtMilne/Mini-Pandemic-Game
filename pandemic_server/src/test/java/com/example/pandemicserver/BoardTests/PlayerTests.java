@@ -1,6 +1,7 @@
 package com.example.pandemicserver.BoardTests;
 
 import models.board.City;
+import models.board.Cube;
 import models.board.players.Player;
 import models.cards.CityCard;
 import models.cards.PlayerCard;
@@ -19,6 +20,8 @@ public class PlayerTests {
     City city3;
     PlayerCard card1;
     PlayerCard card2;
+    Cube cube1;
+    Cube cube2;
 
     @Before
     public void before() {
@@ -28,6 +31,8 @@ public class PlayerTests {
         city3 = new City("Seoul", "red");
         card1 = new CityCard("London", 9, "blue");
         card2 = new CityCard("Seoul", 12, "red");
+        cube1 = new Cube("blue");
+        cube2 = new Cube("blue");
     }
 
     @Test
@@ -130,6 +135,14 @@ public class PlayerTests {
         player.setCity(city1);
         player.shuttleFlight(player.getCity(), city3);
         assertEquals("London", player.getCity().getName());
+    }
+
+    @Test
+    public void canTreatCity() {
+        player.setCity(city1);
+        city1.addCube(cube1);
+        player.treat();
+        assertEquals(0, city1.getCubes().size());
     }
 
 }

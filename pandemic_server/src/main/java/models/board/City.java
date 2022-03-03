@@ -59,7 +59,10 @@ public class City {
         } else {
 
         }
+    }
 
+    public void removeCube() {
+        this.cubes.remove(0);
     }
 
     public void addPlayer(Player player) {

@@ -81,7 +81,12 @@ public class Player {
             // Action if not possible
         }
     }
-//    void shuttleFlight(City city);
+
+    public void treat() {
+        this.getCity().removeCube();
+    }
+
+
 //    void treat();
 //    void cure();
 //    void shareKnowledge();

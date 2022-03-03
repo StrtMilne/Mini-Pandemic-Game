@@ -64,6 +64,13 @@ public class CityTests {
     }
 
     @Test
+    public void canRemoveCubeFromCity() {
+        city.addCube(cube1);
+        city.removeCube();
+        assertEquals(0, city.getCubes().size());
+    }
+
+    @Test
     public void cantAssCubeIfCubesOfColourAreThree() {
         city.addCube(cube1);
         city.addCube(cube2);
