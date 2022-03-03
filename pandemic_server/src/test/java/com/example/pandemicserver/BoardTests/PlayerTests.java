@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class PlayerTests {
 
     Player player;
+    Player player2;
     City city1;
     City city2;
     City city3;
@@ -31,6 +32,7 @@ public class PlayerTests {
     @Before
     public void before() {
         player = new Player("medic");
+        player2 = new Player("ops expert");
         city1 = new City("London", "blue");
         city2 = new City("Paris", "blue");
         city3 = new City("Seoul", "red");
@@ -180,5 +182,16 @@ public class PlayerTests {
         player.cure("blue", cureMarkers);
         assertEquals(false, cureMarkers.isBlueCured());
     }
+
+    @Test
+    public void canShareKnowledge() {
+        player.setCity(city1);
+        player.addCardToHand(card1);
+        player2.setCity(city1);
+        player.shareKnowledge(player2, (CityCard) card1);
+        assertEquals(0, player.getCards().size());
+        assertEquals(1, player2.getCards().size());
+    }
+
 
 }

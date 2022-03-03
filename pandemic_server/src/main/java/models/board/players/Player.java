@@ -100,7 +100,15 @@ public class Player {
         }
     }
 
-//    void shareKnowledge();
+    public void shareKnowledge(Player otherPlayer, CityCard card) {
+        if(this.city == otherPlayer.getCity() && card.getName() == this.city.getName()){
+            this.cards.remove(card);
+            otherPlayer.addCardToHand(card);
+        } else {
+            // Action for wrong city/player
+        }
+    }
+
 //    void pass();
 
 }
