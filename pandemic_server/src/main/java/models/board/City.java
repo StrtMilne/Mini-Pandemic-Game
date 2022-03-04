@@ -58,14 +58,6 @@ public class City {
         this.players = players;
     }
 
-    public void addCube(String colour) {
-        if (cubes.get(colour) < 3) {
-            cubes.put(colour, cubes.get(colour) + 1);
-        } else {
-            // For outbreaks
-        }
-    }
-
     public void removeCube(String colour) {
         this.cubes.put(colour, cubes.get(colour) - 1);
     }

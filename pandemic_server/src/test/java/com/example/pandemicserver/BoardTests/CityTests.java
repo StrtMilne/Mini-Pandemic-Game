@@ -2,6 +2,7 @@ package com.example.pandemicserver.BoardTests;
 
 import models.board.City;
 import models.board.players.Player;
+import models.rules.BaseRules;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,11 +16,13 @@ public class CityTests {
 
     City city;
     Player player;
+    BaseRules baseRules;
 
     @Before
     public void before() {
         city = new City("London", "blue");
         player = new Player("medic");
+        baseRules = new BaseRules();
     }
 
     @Test
@@ -54,14 +57,14 @@ public class CityTests {
 
     @Test
     public void canAddCubeToCity() {
-        city.addCube("blue");
+        baseRules.placeCube(city, "blue");
         int result = city.getCubes().get("blue");
         assertEquals(1, result);
     }
 
     @Test
     public void canRemoveCubeFromCity() {
-        city.addCube("blue");
+        baseRules.placeCube(city, "blue");
         city.removeCube("blue");
         int result = city.getCubes().get("blue");
         assertEquals(0, result);
@@ -69,10 +72,10 @@ public class CityTests {
 
     @Test
     public void cantAddCubeIfCubesOfColourAreThree() {
-        city.addCube("blue");
-        city.addCube("blue");
-        city.addCube("blue");
-        city.addCube("blue");
+        baseRules.placeCube(city, "blue");
+        baseRules.placeCube(city, "blue");
+        baseRules.placeCube(city, "blue");
+        baseRules.placeCube(city, "blue");
         int result = city.getCubes().get("blue");
         assertEquals(3, result);
     }

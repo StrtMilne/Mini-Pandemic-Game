@@ -5,10 +5,13 @@ import models.board.players.Player;
 import models.board.trackers.CureMarkers;
 import models.cards.CityCard;
 import models.cards.PlayerCard;
+import models.rules.BaseRules;
 import models.rules.PlayerActions;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.prefs.BackingStoreException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,10 +30,12 @@ public class PlayerTests {
     PlayerCard card5;
     CureMarkers cureMarkers;
     PlayerActions playerActions;
+    BaseRules baseRules;
 
     @Before
     public void before() {
         playerActions = new PlayerActions();
+        baseRules = new BaseRules();
         player = new Player("medic");
         player2 = new Player("ops expert");
         city1 = new City("London", "blue");
@@ -149,7 +154,7 @@ public class PlayerTests {
     @Test
     public void canTreatCity() {
         player.setCity(city1);
-        city1.addCube("blue");
+        baseRules.placeCube(city1, "blue");
         playerActions.treat(player,"blue");
         int result = city1.getCubes().get("blue");
         assertEquals(0, result);
