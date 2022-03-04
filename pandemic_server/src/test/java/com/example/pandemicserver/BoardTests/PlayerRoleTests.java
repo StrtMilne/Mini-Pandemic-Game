@@ -5,6 +5,7 @@ import models.board.players.Player;
 import models.board.trackers.CureMarkers;
 import models.cards.CityCard;
 import models.rules.playerActions.MedicActions;
+import models.rules.playerActions.OpsExpertActions;
 import models.rules.playerActions.ResearcherActions;
 import models.rules.playerActions.ScientistActions;
 import org.junit.Before;
@@ -29,6 +30,7 @@ public class PlayerRoleTests {
     MedicActions medicActions;
     ScientistActions scientistActions;
     ResearcherActions researcherActions;
+    OpsExpertActions opsExpertActions;
 
     @Before
     public void before() {
@@ -45,6 +47,7 @@ public class PlayerRoleTests {
         medicActions = new MedicActions(cureMarkers);
         scientistActions = new ScientistActions();
         researcherActions = new ResearcherActions();
+        opsExpertActions = new OpsExpertActions();
     }
 
     @Test
@@ -206,6 +209,33 @@ public class PlayerRoleTests {
         assertEquals(0, player2.getCards().size());
     }
 
-    // Create tests for Ops expert and Dispatcher to create classes...
+    @Test
+    public void opsExpertCanBuildResearchCentreWithoutCard() {
+        player.setCity(city1);
+        opsExpertActions.buildResearchCentre(player);
+        assertEquals(true, city1.getResearchCentre());
+    }
+
+    @Test
+    public void opsExpertCanFlyAnywhereFromResearchCentreByDiscardingCard() {
+        player.setCity(city1);
+        player.addCardToHand(card4);
+        city1.setHasResearchCentre(true);
+        opsExpertActions.opsFLight(player, city2, card4);
+        assertEquals(0, player.getCards().size());
+        assertEquals(city2, player.getCity());
+    }
+
+    @Test
+    public void opsExpertDoesntFlyIfCardNotInHand() {
+        player.setCity(city1);
+        player.addCardToHand(card3);
+        city1.setHasResearchCentre(true);
+        opsExpertActions.opsFLight(player, city2, card4);
+        assertEquals(1, player.getCards().size());
+        assertEquals(city1, player.getCity());
+    }
+
+    // Create tests for Dispatcher to create classes...
 
 }

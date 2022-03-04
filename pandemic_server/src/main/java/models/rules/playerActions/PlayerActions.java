@@ -15,10 +15,8 @@ public class PlayerActions {
 
     public void directFlight(Player player, City arrivalCity){
         if (player.getCards().stream()
-                .filter(card -> card.getName()
-                        .equals(arrivalCity.getName()))
-                .findFirst()
-                .isPresent()) {
+                .anyMatch(card -> card.getName()
+                        .equals(arrivalCity.getName()))) {
             player.setCity(arrivalCity);
             player.getCards().removeIf(card -> card.getName().equals(arrivalCity.getName()));
         } else {
@@ -28,10 +26,8 @@ public class PlayerActions {
 
     public void charterFlight(Player player, City arrivalCity){
         if (player.getCards().stream()
-                .filter(card -> card.getName()
-                        .equals(player.getCity().getName()))
-                .findFirst()
-                .isPresent()) {
+                .anyMatch(card -> card.getName()
+                        .equals(player.getCity().getName()))) {
             player.getCards().removeIf(card -> card.getName().equals(player.getCity().getName()));
             player.setCity(arrivalCity);
         } else {
@@ -53,7 +49,7 @@ public class PlayerActions {
 
     public void cure(Player player, String colour, CureMarkers cureMarkers) {
         long colourCount = player.getCards().stream()
-                .filter(card -> card instanceof CityCard && ((CityCard) card).getColour() == colour)
+                .filter(card -> card instanceof CityCard && ((CityCard) card).getColour().equals(colour))
                 .count();
 
         if(colourCount >= 5) {
@@ -69,6 +65,13 @@ public class PlayerActions {
             otherPlayer.addCardToHand(card);
         } else {
             // Action for wrong city/player
+        }
+    }
+
+    public void buildResearchCentre(Player player) {
+        City city = player.getCity();
+        if(player.getCards().stream().anyMatch(card -> card.getName() == city.getName())) {
+            city.setHasResearchCentre(true);
         }
     }
 
