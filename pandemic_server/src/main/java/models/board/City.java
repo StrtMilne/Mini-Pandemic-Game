@@ -54,6 +54,10 @@ public class City {
         this.cubes = cubes;
     }
 
+    public void setCubesOfColour(String colour, int number) {
+        this.cubes.put(colour, number);
+    }
+
     public void setPlayers(List<Player> players) {
         this.players = players;
     }

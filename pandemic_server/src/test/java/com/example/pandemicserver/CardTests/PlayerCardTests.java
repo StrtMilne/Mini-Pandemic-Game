@@ -1,6 +1,7 @@
 package com.example.pandemicserver.CardTests;
 
 import models.cards.CityCard;
+import models.cards.EpidemicCard;
 import models.cards.EventCard;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,17 +14,20 @@ public class PlayerCardTests {
 
     CityCard card1;
     EventCard eventCard1;
+    EpidemicCard epidemicCard1;
 
     @Before
     public void before() {
         card1 = new CityCard("Bogota", 7.1, "yellow");
         eventCard1 = new EventCard("Airlift");
+        epidemicCard1 = new EpidemicCard();
     }
 
     @Test
     public void playerCardHasName() {
         assertEquals("Bogota", card1.getName());
         assertEquals("Airlift", eventCard1.getName());
+        assertEquals("Epidemic", epidemicCard1.getName());
     }
 
     @Test

@@ -1,4 +1,4 @@
-package models.rules;
+package models.rules.playerActions;
 
 import models.board.City;
 import models.board.players.Player;
@@ -56,7 +56,7 @@ public class PlayerActions {
                 .filter(card -> card instanceof CityCard && ((CityCard) card).getColour() == colour)
                 .count();
 
-        if(colourCount >= 4) {
+        if(colourCount >= 5) {
             cureMarkers.setCured(colour);
         } else {
             // Action for insuffficient cards

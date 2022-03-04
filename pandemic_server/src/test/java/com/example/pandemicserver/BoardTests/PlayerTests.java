@@ -6,12 +6,10 @@ import models.board.trackers.CureMarkers;
 import models.cards.CityCard;
 import models.cards.PlayerCard;
 import models.rules.BaseRules;
-import models.rules.PlayerActions;
+import models.rules.playerActions.PlayerActions;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.prefs.BackingStoreException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,6 +26,7 @@ public class PlayerTests {
     PlayerCard card3;
     PlayerCard card4;
     PlayerCard card5;
+    PlayerCard card6;
     CureMarkers cureMarkers;
     PlayerActions playerActions;
     BaseRules baseRules;
@@ -46,6 +45,7 @@ public class PlayerTests {
         card3 = new CityCard("Paris", 9, "blue");
         card4 = new CityCard("Madrid", 9, "blue");
         card5 = new CityCard("Essen", 9, "blue");
+        card6 = new CityCard("Atlanta", 9, "blue");
         cureMarkers = new CureMarkers();
     }
 
@@ -166,6 +166,7 @@ public class PlayerTests {
         player.addCardToHand(card3);
         player.addCardToHand(card4);
         player.addCardToHand(card5);
+        player.addCardToHand(card6);
         playerActions.cure(player,"blue", cureMarkers);
         assertEquals(true, cureMarkers.isBlueCured());
     }
