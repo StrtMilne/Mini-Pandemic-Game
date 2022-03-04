@@ -1,14 +1,11 @@
 package com.example.pandemicserver.BoardTests;
 
 import models.board.City;
-import models.board.Cube;
 import models.board.players.Player;
-import models.cards.PlayerCard;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
@@ -17,19 +14,11 @@ import static org.junit.Assert.assertEquals;
 public class CityTests {
 
     City city;
-    Cube cube1;
-    Cube cube2;
-    Cube cube3;
-    Cube cube4;
     Player player;
 
     @Before
     public void before() {
         city = new City("London", "blue");
-        cube2 = new Cube("blue");
-        cube3 = new Cube("blue");
-        cube4 = new Cube("blue");
-        cube1 = new Cube("blue");
         player = new Player("medic");
     }
 

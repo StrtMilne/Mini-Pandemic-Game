@@ -1,11 +1,11 @@
 package com.example.pandemicserver.BoardTests;
 
 import models.board.City;
-import models.board.Cube;
 import models.board.players.Player;
 import models.board.trackers.CureMarkers;
 import models.cards.CityCard;
 import models.cards.PlayerCard;
+import models.rules.PlayerActions;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,12 +25,12 @@ public class PlayerTests {
     PlayerCard card3;
     PlayerCard card4;
     PlayerCard card5;
-    Cube cube1;
-    Cube cube2;
     CureMarkers cureMarkers;
+    PlayerActions playerActions;
 
     @Before
     public void before() {
+        playerActions = new PlayerActions();
         player = new Player("medic");
         player2 = new Player("ops expert");
         city1 = new City("London", "blue");
@@ -41,8 +41,6 @@ public class PlayerTests {
         card3 = new CityCard("Paris", 9, "blue");
         card4 = new CityCard("Madrid", 9, "blue");
         card5 = new CityCard("Essen", 9, "blue");
-        cube1 = new Cube("blue");
-        cube2 = new Cube("blue");
         cureMarkers = new CureMarkers();
     }
 
@@ -65,7 +63,7 @@ public class PlayerTests {
     @Test
     public void playerCanDriveToNewCity() {
         player.setCity(city1);
-        player.driveFerry(city2);
+        playerActions.driveFerry(player, city2);
         assertEquals("Paris", player.getCity().getName());
     }
 
@@ -84,7 +82,7 @@ public class PlayerTests {
     public void playerCanDirectFlightToNewCity() {
         player.setCity(city1);
         player.addCardToHand(card2);
-        player.directFlight(city3);
+        playerActions.directFlight(player, city3);
         assertEquals("Seoul", player.getCity().getName());
         assertEquals(0, player.getCards().size());
     }
@@ -93,7 +91,7 @@ public class PlayerTests {
     public void playerCantDirectFlightToNewCityWithoutCorrectCard() {
         player.setCity(city1);
         player.addCardToHand(card1);
-        player.directFlight(city3);
+        playerActions.directFlight(player, city3);
         assertEquals("London", player.getCity().getName());
         assertEquals(1, player.getCards().size());
     }
@@ -102,7 +100,7 @@ public class PlayerTests {
     public void canCharterFlightToNewCity() {
         player.setCity(city1);
         player.addCardToHand(card1);
-        player.charterFlight(city3);
+        playerActions.charterFlight(player, city3);
         assertEquals("Seoul", player.getCity().getName());
         assertEquals(0, player.getCards().size());
     }
@@ -111,7 +109,7 @@ public class PlayerTests {
     public void cantCharterFlightToNewCityWithoutCorrectCard() {
         player.setCity(city1);
         player.addCardToHand(card2);
-        player.charterFlight(city3);
+        playerActions.charterFlight(player, city3);
         assertEquals("London", player.getCity().getName());
         assertEquals(1, player.getCards().size());
     }
@@ -121,7 +119,7 @@ public class PlayerTests {
         player.setCity(city1);
         city1.setHasResearchCentre(true);
         city3.setHasResearchCentre(true);
-        player.shuttleFlight(player.getCity(), city3);
+        playerActions.shuttleFlight(player, player.getCity(), city3);
         assertEquals("Seoul", player.getCity().getName());
     }
 
@@ -129,7 +127,7 @@ public class PlayerTests {
     public void cantShuttleFlightToNewCityIfStartHasNoResearchCentre() {
         player.setCity(city1);
         city3.setHasResearchCentre(true);
-        player.shuttleFlight(player.getCity(), city3);
+        playerActions.shuttleFlight(player, player.getCity(), city3);
         assertEquals("London", player.getCity().getName());
     }
 
@@ -137,14 +135,14 @@ public class PlayerTests {
     public void cantShuttleFlightToNewCityIfEndHasNoResearchCentre() {
         player.setCity(city1);
         city1.setHasResearchCentre(true);
-        player.shuttleFlight(player.getCity(), city3);
+        playerActions.shuttleFlight(player, player.getCity(), city3);
         assertEquals("London", player.getCity().getName());
     }
 
     @Test
     public void cantShuttleFlightToNewCityINeitherHasResearchCentre() {
         player.setCity(city1);
-        player.shuttleFlight(player.getCity(), city3);
+        playerActions.shuttleFlight(player, player.getCity(), city3);
         assertEquals("London", player.getCity().getName());
     }
 
@@ -152,7 +150,7 @@ public class PlayerTests {
     public void canTreatCity() {
         player.setCity(city1);
         city1.addCube("blue");
-        player.treat("blue");
+        playerActions.treat(player,"blue");
         int result = city1.getCubes().get("blue");
         assertEquals(0, result);
     }
@@ -163,7 +161,7 @@ public class PlayerTests {
         player.addCardToHand(card3);
         player.addCardToHand(card4);
         player.addCardToHand(card5);
-        player.cure("blue", cureMarkers);
+        playerActions.cure(player,"blue", cureMarkers);
         assertEquals(true, cureMarkers.isBlueCured());
     }
 
@@ -173,13 +171,13 @@ public class PlayerTests {
         player.addCardToHand(card2);
         player.addCardToHand(card4);
         player.addCardToHand(card5);
-        player.cure("blue", cureMarkers);
+        playerActions.cure(player,"blue", cureMarkers);
         assertEquals(false, cureMarkers.isBlueCured());
     }
 
     @Test
     public void cantCureColourWithNoCards() {
-        player.cure("blue", cureMarkers);
+        playerActions.cure(player,"blue", cureMarkers);
         assertEquals(false, cureMarkers.isBlueCured());
     }
 
@@ -188,7 +186,7 @@ public class PlayerTests {
         player.setCity(city1);
         player.addCardToHand(card1);
         player2.setCity(city1);
-        player.shareKnowledge(player2, (CityCard) card1);
+        playerActions.shareKnowledge(player, player2, (CityCard) card1);
         assertEquals(0, player.getCards().size());
         assertEquals(1, player2.getCards().size());
     }
@@ -198,7 +196,7 @@ public class PlayerTests {
         player.setCity(city2);
         player.addCardToHand(card1);
         player2.setCity(city1);
-        player.shareKnowledge(player2, (CityCard) card1);
+        playerActions.shareKnowledge(player, player2, (CityCard) card1);
         assertEquals(1, player.getCards().size());
         assertEquals(0, player2.getCards().size());
     }
@@ -208,7 +206,7 @@ public class PlayerTests {
         player.setCity(city1);
         player.addCardToHand(card1);
         player2.setCity(city2);
-        player.shareKnowledge(player2, (CityCard) card1);
+        playerActions.shareKnowledge(player, player2, (CityCard) card1);
         assertEquals(1, player.getCards().size());
         assertEquals(0, player2.getCards().size());
     }
@@ -218,7 +216,7 @@ public class PlayerTests {
         player.setCity(city1);
         player.addCardToHand(card2);
         player2.setCity(city1);
-        player.shareKnowledge(player2, (CityCard) card2);
+        playerActions.shareKnowledge(player, player2, (CityCard) card2);
         assertEquals(1, player.getCards().size());
         assertEquals(0, player2.getCards().size());
     }

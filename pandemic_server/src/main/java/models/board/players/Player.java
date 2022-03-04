@@ -30,12 +30,6 @@ public class Player {
         this.city = city;
     }
 
-    public void driveFerry(City nextCity) {
-        this.city.getPlayers().remove(this);
-        this.city = nextCity;
-        nextCity.addPlayer(this);
-    };
-
     public ArrayList<PlayerCard> getCards() {
         return cards;
     }
@@ -47,68 +41,5 @@ public class Player {
     public void addCardToHand(PlayerCard card) {
         this.cards.add(card);
     }
-
-    public void directFlight(City arrivalCity){
-         if (this.cards.stream()
-                 .filter(card -> card.getName()
-                 .equals(arrivalCity.getName()))
-                 .findFirst()
-                 .isPresent()) {
-             this.setCity(arrivalCity);
-             this.cards.removeIf(card -> card.getName().equals(arrivalCity.getName()));
-         } else {
-             // Action if not possible
-         }
-    }
-
-
-    public void charterFlight(City arrivalCity){
-        if (this.cards.stream()
-                .filter(card -> card.getName()
-                .equals(this.city.getName()))
-                .findFirst()
-                .isPresent()) {
-            this.cards.removeIf(card -> card.getName().equals(this.city.getName()));
-            this.setCity(arrivalCity);
-        } else {
-            // Action if not possible
-        }
-    };
-
-    public void shuttleFlight(City startCity, City endCity) {
-        if(startCity.getResearchCentre() && endCity.getResearchCentre()){
-            this.setCity(endCity);
-        } else {
-            // Action if not possible
-        }
-    }
-
-    public void treat(String colour) {
-
-        this.getCity().removeCube(colour);
-    }
-
-    public void cure(String colour, CureMarkers cureMarkers) {
-        long colourCount = this.cards.stream()
-                .filter(card -> card instanceof CityCard && ((CityCard) card).getColour() == colour)
-                .count();
-
-        if(colourCount >= 4) {
-            cureMarkers.setCured(colour);
-        } else {
-            // Action for insuffficient cards
-        }
-    }
-
-    public void shareKnowledge(Player otherPlayer, CityCard card) {
-        if(this.city == otherPlayer.getCity() && card.getName() == this.city.getName()){
-            this.cards.remove(card);
-            otherPlayer.addCardToHand(card);
-        } else {
-            // Action for wrong city/player
-        }
-    }
-
-//    void pass() ---- depends on their being an action class to implement;
 
 }
