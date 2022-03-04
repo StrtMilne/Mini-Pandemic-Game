@@ -64,7 +64,7 @@ public class PlayerActions {
     };
 
     public void shareKnowledge(Player player, Player otherPlayer, CityCard card) {
-        if(player.getCity() == otherPlayer.getCity() && card.getName() == player.getCity().getName()){
+        if(player.getCity() == otherPlayer.getCity() && card.getName() == player.getCity().getName() && player.getCards().contains(card)){
             player.getCards().remove(card);
             otherPlayer.addCardToHand(card);
         } else {

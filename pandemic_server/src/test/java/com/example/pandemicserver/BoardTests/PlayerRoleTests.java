@@ -5,6 +5,7 @@ import models.board.players.Player;
 import models.board.trackers.CureMarkers;
 import models.cards.CityCard;
 import models.rules.playerActions.MedicActions;
+import models.rules.playerActions.ResearcherActions;
 import models.rules.playerActions.ScientistActions;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,28 +17,34 @@ import static org.junit.Assert.assertEquals;
 public class PlayerRoleTests {
 
     Player player;
+    Player player2;
     City city1;
     City city2;
     CityCard card1;
     CityCard card2;
     CityCard card3;
     CityCard card4;
+    CityCard card5;
     CureMarkers cureMarkers;
     MedicActions medicActions;
     ScientistActions scientistActions;
+    ResearcherActions researcherActions;
 
     @Before
     public void before() {
         player = new Player("medic");
+        player2 = new Player("researcher");
         city1 = new City("London", "blue");
         city2 = new City("Paris", "blue");
         card1 = new CityCard("Paris", 8, "blue");
         card2 = new CityCard("London", 9, "blue");
         card3 = new CityCard("Essen", 6, "blue");
         card4 = new CityCard("Madrid", 5, "blue");
+        card5 = new CityCard("Santiago", 5, "yellow");
         cureMarkers = new CureMarkers();
         medicActions = new MedicActions(cureMarkers);
         scientistActions = new ScientistActions();
+        researcherActions = new ResearcherActions();
     }
 
     @Test
@@ -178,5 +185,27 @@ public class PlayerRoleTests {
         scientistActions.cure(player, "blue", cureMarkers);
         assertEquals(false, cureMarkers.isBlueCured());
     }
+
+    @Test
+    public void researcherCanGiveAnyCard() {
+        player2.addCardToHand(card4);
+        player2.setCity(city1);
+        player.setCity(city1);
+        researcherActions.shareKnowledge(player2, player, card4);
+        assertEquals(1, player.getCards().size());
+        assertEquals(0, player2.getCards().size());
+    }
+
+    @Test
+    public void researcherCanGiveAnyCardColourIsIrrelevant() {
+        player2.addCardToHand(card5);
+        player2.setCity(city1);
+        player.setCity(city1);
+        researcherActions.shareKnowledge(player2, player, card5);
+        assertEquals(1, player.getCards().size());
+        assertEquals(0, player2.getCards().size());
+    }
+
+    // Create tests for Ops expert and Dispatcher to create classes...
 
 }
