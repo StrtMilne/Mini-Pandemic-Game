@@ -35,8 +35,8 @@ public class PlayerActions {
         }
     };
 
-    public void shuttleFlight(Player player,City startCity, City endCity) {
-        if(startCity.getResearchCentre() && endCity.getResearchCentre()){
+    public void shuttleFlight(Player player, City endCity) {
+        if(player.getCity().getResearchCentre() && endCity.getResearchCentre()){
             player.setCity(endCity);
         } else {
             // Action if not possible

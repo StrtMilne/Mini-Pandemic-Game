@@ -90,6 +90,7 @@ public class PlayerTests {
         playerActions.directFlight(player, city3);
         assertEquals("Seoul", player.getCity().getName());
         assertEquals(0, player.getCards().size());
+        assertEquals(0, city1.getPlayers().size());
     }
 
     @Test
@@ -124,7 +125,7 @@ public class PlayerTests {
         player.setCity(city1);
         city1.setHasResearchCentre(true);
         city3.setHasResearchCentre(true);
-        playerActions.shuttleFlight(player, player.getCity(), city3);
+        playerActions.shuttleFlight(player, city3);
         assertEquals("Seoul", player.getCity().getName());
     }
 
@@ -132,7 +133,7 @@ public class PlayerTests {
     public void cantShuttleFlightToNewCityIfStartHasNoResearchCentre() {
         player.setCity(city1);
         city3.setHasResearchCentre(true);
-        playerActions.shuttleFlight(player, player.getCity(), city3);
+        playerActions.shuttleFlight(player, city3);
         assertEquals("London", player.getCity().getName());
     }
 
@@ -140,14 +141,14 @@ public class PlayerTests {
     public void cantShuttleFlightToNewCityIfEndHasNoResearchCentre() {
         player.setCity(city1);
         city1.setHasResearchCentre(true);
-        playerActions.shuttleFlight(player, player.getCity(), city3);
+        playerActions.shuttleFlight(player, city3);
         assertEquals("London", player.getCity().getName());
     }
 
     @Test
     public void cantShuttleFlightToNewCityINeitherHasResearchCentre() {
         player.setCity(city1);
-        playerActions.shuttleFlight(player, player.getCity(), city3);
+        playerActions.shuttleFlight(player, city3);
         assertEquals("London", player.getCity().getName());
     }
 

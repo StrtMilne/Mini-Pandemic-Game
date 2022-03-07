@@ -4,10 +4,7 @@ import models.board.City;
 import models.board.players.Player;
 import models.board.trackers.CureMarkers;
 import models.cards.CityCard;
-import models.rules.playerActions.MedicActions;
-import models.rules.playerActions.OpsExpertActions;
-import models.rules.playerActions.ResearcherActions;
-import models.rules.playerActions.ScientistActions;
+import models.rules.playerActions.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +18,7 @@ public class PlayerRoleTests {
     Player player2;
     City city1;
     City city2;
+    City city3;
     CityCard card1;
     CityCard card2;
     CityCard card3;
@@ -31,6 +29,7 @@ public class PlayerRoleTests {
     ScientistActions scientistActions;
     ResearcherActions researcherActions;
     OpsExpertActions opsExpertActions;
+    DispatcherActions dispatcherActions;
 
     @Before
     public void before() {
@@ -38,6 +37,7 @@ public class PlayerRoleTests {
         player2 = new Player("researcher");
         city1 = new City("London", "blue");
         city2 = new City("Paris", "blue");
+        city3 = new City("Santiago", "yellow");
         card1 = new CityCard("Paris", 8, "blue");
         card2 = new CityCard("London", 9, "blue");
         card3 = new CityCard("Essen", 6, "blue");
@@ -48,6 +48,7 @@ public class PlayerRoleTests {
         scientistActions = new ScientistActions();
         researcherActions = new ResearcherActions();
         opsExpertActions = new OpsExpertActions();
+        dispatcherActions = new DispatcherActions(player2);
     }
 
     @Test
@@ -224,6 +225,7 @@ public class PlayerRoleTests {
         opsExpertActions.opsFLight(player, city2, card4);
         assertEquals(0, player.getCards().size());
         assertEquals(city2, player.getCity());
+        assertEquals(0, city1.getPlayers().size());
     }
 
     @Test
@@ -236,6 +238,51 @@ public class PlayerRoleTests {
         assertEquals(city1, player.getCity());
     }
 
-    // Create tests for Dispatcher to create classes...
+    // Dispatcher actions vvv
 
+    @Test
+    public void dispatcherCanMoveOnePawnToAnother() {
+        player.setCity(city1);
+        player2.setCity(city3);
+        dispatcherActions.pawnToPawn(player, player2);
+        assertEquals(player.getCity(), player2.getCity());
+        assertEquals(0, city1.getPlayers().size());
+    }
+
+    @Test
+    public void playerCanDirectFlightOtherPawnToNewCity() {
+        player.setCity(city1);
+        player2.addCardToHand(card5);
+        dispatcherActions.directFlight(player, city3);
+        assertEquals("Santiago", player.getCity().getName());
+        assertEquals(0, player2.getCards().size());
+        assertEquals(0, city1.getPlayers().size());
+    }
+
+    @Test
+    public void playerCantDirectFlightOtherPawnToNewCityWithoutCorrectCard() {
+        player.setCity(city1);
+        player2.addCardToHand(card1);
+        dispatcherActions.directFlight(player, city3);
+        assertEquals("London", player.getCity().getName());
+        assertEquals(1, player2.getCards().size());
+    }
+
+    @Test
+    public void canCharterFlightOtherPawnToNewCity() {
+        player.setCity(city1);
+        player2.addCardToHand(card2);
+        dispatcherActions.charterFlight(player, city3);
+        assertEquals("Santiago", player.getCity().getName());
+        assertEquals(0, player2.getCards().size());
+    }
+
+    @Test
+    public void cantCharterFlightOtherPawnToNewCityWithoutCorrectCard() {
+        player.setCity(city1);
+        player2.addCardToHand(card1);
+        dispatcherActions.charterFlight(player, city3);
+        assertEquals("London", player.getCity().getName());
+        assertEquals(1, player2.getCards().size());
+    }
 }
