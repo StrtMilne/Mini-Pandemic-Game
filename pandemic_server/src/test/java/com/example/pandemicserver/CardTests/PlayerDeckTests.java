@@ -1,6 +1,7 @@
 package com.example.pandemicserver.CardTests;
 
 import models.cards.InfectionDeck;
+import models.cards.PlayerDeck;
 import models.cities.BaseGameCities;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,34 +10,37 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
-public class InfectionDeckTests {
+public class PlayerDeckTests {
 
-    InfectionDeck infectionDeck;
+    PlayerDeck playerDeck;
     BaseGameCities cities;
 
     @Before
     public void before() {
         cities = new BaseGameCities();
-        infectionDeck = new InfectionDeck(cities);
+        playerDeck = new PlayerDeck(cities, 4);
     }
 
     @Test
     public void startsWithEmptyArrayForCards() {
-        assertEquals(0, infectionDeck.getInfectionCards().size());
+        assertEquals(0, playerDeck.getPlayerCards().size());
     }
 
     @Test
     public void startsWithEmptyArrayForDiscardPile() {
-        assertEquals(0, infectionDeck.getDiscardPile().size());
+        assertEquals(0, playerDeck.getDiscardPile().size());
     }
 
     // Test will need to be updated as more cities are added to list;
     @Test
     public void canPopulateDeck() {
-        infectionDeck.populate();
-        assertEquals(16, infectionDeck.getInfectionCards().size());
+        playerDeck.populate();
+        assertEquals(16, playerDeck.getPlayerCards().size());
     }
 
+    @Test
+    public void canIntersperseEpidemicCardsInPack() {
 
+    }
 
 }

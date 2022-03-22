@@ -28,7 +28,7 @@ public class CitiesTests {
     //Following test will need updated as BaseGameCities class is filled out
     @Test
     public void BaseGameCitiesCanPassListOfHashMaps() {
-        assertEquals(4, cities.passCities().size());
+        assertEquals(16, cities.passCities().size());
     }
 
     @Test
