@@ -1,6 +1,7 @@
 package com.example.pandemicserver.CardTests;
 
 import models.cards.InfectionDeck;
+import models.cities.BaseGameCities;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,10 +12,12 @@ import static org.junit.Assert.assertEquals;
 public class InfectionDeckTests {
 
     InfectionDeck infectionDeck;
+    BaseGameCities cities;
 
     @Before
     public void before() {
-        infectionDeck = new InfectionDeck();
+        cities = new BaseGameCities();
+        infectionDeck = new InfectionDeck(cities);
     }
 
     @Test

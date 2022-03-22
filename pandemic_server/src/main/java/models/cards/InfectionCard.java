@@ -5,16 +5,11 @@ public class InfectionCard {
     private String name;
     private boolean epidemic;
 
-    public InfectionCard(String name, boolean epidemic) {
+    public InfectionCard(String name) {
         this.name = name;
-        this.epidemic = epidemic;
     }
 
     public String getName() {
         return name;
-    }
-
-    public boolean isEpidemic() {
-        return epidemic;
     }
 }

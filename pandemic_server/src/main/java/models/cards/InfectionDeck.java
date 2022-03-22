@@ -1,16 +1,21 @@
 package models.cards;
 
+import models.cities.BaseGameCities;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class InfectionDeck {
 
     private ArrayList<InfectionCard> infectionCards;
     private ArrayList<InfectionCard> discardPile;
+    private ArrayList<HashMap> cities;
 
-    public InfectionDeck() {
+    public InfectionDeck(BaseGameCities cities) {
         this.infectionCards = new ArrayList<>();
         this.discardPile = new ArrayList<>();
+        this.cities = cities.passCities();
     }
 
     public ArrayList<InfectionCard> getInfectionCards() {
@@ -30,5 +35,10 @@ public class InfectionDeck {
     }
 
     public void populate() {
+        for(int i = 0; i < cities.size(); i++){
+            HashMap<String, String> newCity = cities.get(i);
+            InfectionCard newCard = new InfectionCard(newCity.get("name"));
+            this.infectionCards.add(newCard);
+        };
     }
 }
