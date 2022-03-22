@@ -1,5 +1,6 @@
 package com.example.pandemicserver.BoardTests;
 
+import models.board.players.Player;
 import models.rules.PlayerTurn;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,10 +12,18 @@ import static org.junit.Assert.assertEquals;
 public class PlayerTurnTests {
 
     PlayerTurn playerTurn;
+    Player player;
+
 
     @Before
     public void before() {
-        playerTurn = new PlayerTurn();
+        player = new Player("medic");
+        playerTurn = new PlayerTurn(player);
+    }
+
+    @Test
+    public void turnHasPLayer() {
+        assertEquals(player, playerTurn.getPlayer());
     }
 
     @Test
@@ -23,12 +32,25 @@ public class PlayerTurnTests {
     }
 
     @Test
-    public void turnStartsWithZeroPlayerCardsDrawn() {
-        assertEquals(0, playerTurn.getPlayerCardsDrawn());
+    public void turnStartsWithTwoPlayerCardsToDraw() {
+        assertEquals(2, playerTurn.getPlayerCardsToDraw());
     }
 
     @Test
-    public void turnStartsWithFourActionsRemaing() {
-        assertEquals(0, playerTurn.getActionsRemaining());
+    public void turnStartsWithFourActionsRemaining() {
+        assertEquals(4, playerTurn.getActionsRemaining());
     }
+
+    @Test
+    public void canRemoveAction() {
+        playerTurn.removeAction();
+        assertEquals(3, playerTurn.getActionsRemaining());
+    }
+
+    @Test
+    public void canIncreasePlayerCardsDrawn() {
+        playerTurn.drawCards();
+        assertEquals(0, playerTurn.getPlayerCardsToDraw());
+    }
+
 }
