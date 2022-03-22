@@ -11,7 +11,7 @@ public class PlayerActions {
         player.getCity().getPlayers().remove(player);
         player.setCity(nextCity);
         nextCity.addPlayer(player);
-    };
+    }
 
     public void directFlight(Player player, City arrivalCity){
         if (player.getCards().stream()
@@ -22,7 +22,7 @@ public class PlayerActions {
         } else {
             // Action if not possible
         }
-    };
+    }
 
     public void charterFlight(Player player, City arrivalCity){
         if (player.getCards().stream()
@@ -33,7 +33,7 @@ public class PlayerActions {
         } else {
             // Action if not possible
         }
-    };
+    }
 
     public void shuttleFlight(Player player, City endCity) {
         if(player.getCity().getResearchCentre() && endCity.getResearchCentre()){
@@ -41,11 +41,11 @@ public class PlayerActions {
         } else {
             // Action if not possible
         }
-    };
+    }
 
     public void treat(Player player, String colour) {
         player.getCity().removeCube(colour);
-    };
+    }
 
     public void cure(Player player, String colour, CureMarkers cureMarkers) {
         long colourCount = player.getCards().stream()
@@ -55,12 +55,12 @@ public class PlayerActions {
         if(colourCount >= 5) {
             cureMarkers.setCured(colour);
         } else {
-            // Action for insuffficient cards
+            // Action for insufficient cards
         }
-    };
+    }
 
     public void shareKnowledge(Player player, Player otherPlayer, CityCard card) {
-        if(player.getCity() == otherPlayer.getCity() && card.getName() == player.getCity().getName() && player.getCards().contains(card)){
+        if(player.getCity() == otherPlayer.getCity() && card.getName().equals(player.getCity().getName()) && player.getCards().contains(card)){
             player.getCards().remove(card);
             otherPlayer.addCardToHand(card);
         } else {
@@ -70,7 +70,7 @@ public class PlayerActions {
 
     public void buildResearchCentre(Player player) {
         City city = player.getCity();
-        if(player.getCards().stream().anyMatch(card -> card.getName() == city.getName())) {
+        if(player.getCards().stream().anyMatch(card -> card.getName().equals(city.getName()))) {
             city.setHasResearchCentre(true);
         }
     }

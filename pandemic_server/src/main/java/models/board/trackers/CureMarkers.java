@@ -47,11 +47,11 @@ public class CureMarkers {
     }
 
     public void setCured(String colour) {
-        if (colour == "blue") {
+        if (colour.equals("blue")) {
             this.blueCured = true;
-        } else if (colour == "black") {
+        } else if (colour.equals("black")) {
             this.blackCured = true;
-        } else if (colour == "red") {
+        } else if (colour.equals("red")) {
             this.redCured = true;
         } else {
             this.yellowCured = true;

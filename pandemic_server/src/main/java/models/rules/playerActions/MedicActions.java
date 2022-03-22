@@ -15,7 +15,7 @@ public class MedicActions extends PlayerActions {
     public void treat(Player player, String colour) {
         super.treat(player, colour);
         player.getCity().setCubesOfColour(colour, 0);
-    };
+    }
 
     public void autoTreat(City city) {
 
@@ -37,17 +37,17 @@ public class MedicActions extends PlayerActions {
         super.driveFerry(player, nextCity);
 
         this.autoTreat(nextCity);
-    };
+    }
 
     public void directFlight(Player player, City nextCity){
         super.directFlight(player, nextCity);
 
         this.autoTreat(nextCity);
-    };
+    }
 
     public void charterFlight(Player player, City nextCity){
         super.charterFlight(player, nextCity);
 
         this.autoTreat(nextCity);
-    };
+    }
 }

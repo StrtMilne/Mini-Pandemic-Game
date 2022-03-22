@@ -1,8 +1,6 @@
 package models.board.players;
 
 import models.board.City;
-import models.board.trackers.CureMarkers;
-import models.cards.CityCard;
 import models.cards.PlayerCard;
 import java.util.ArrayList;
 

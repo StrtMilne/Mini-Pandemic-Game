@@ -10,13 +10,13 @@ public class ScientistActions extends PlayerActions{
         super.cure(player, colour, cureMarkers);
 
         long colourCount = player.getCards().stream()
-                .filter(card -> card instanceof CityCard && ((CityCard) card).getColour() == colour)
+                .filter(card -> card instanceof CityCard && ((CityCard) card).getColour().equals(colour))
                 .count();
 
         if(colourCount >= 4) {
             cureMarkers.setCured(colour);
         } else {
-            // Action for insuffficient cards
+            // Action for insufficient cards
         }
     }
 }

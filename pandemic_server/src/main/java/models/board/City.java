@@ -23,7 +23,7 @@ public class City {
         cubes.put("yellow", 0);
         cubes.put("black", 0);
         cubes.put("red", 0);
-        this.players = new ArrayList();
+        this.players = new ArrayList<>();
     }
 
     public String getName() {

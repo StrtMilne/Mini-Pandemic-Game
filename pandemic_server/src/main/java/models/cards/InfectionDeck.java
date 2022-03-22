@@ -1,11 +1,8 @@
 package models.cards;
 
-import models.cities.BaseGameCities;
 import models.cities.Cities;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -42,7 +39,7 @@ public class InfectionDeck {
             HashMap<String, String> newCity = cities.get(i);
             InfectionCard newCard = new InfectionCard(newCity.get("name"));
             this.infectionCards.add(newCard);
-        };
+        }
     }
 
     public void shuffle() {

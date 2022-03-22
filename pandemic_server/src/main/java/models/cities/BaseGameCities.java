@@ -5,17 +5,17 @@ import java.util.HashMap;
 
 public class BaseGameCities implements Cities{
 
-    public ArrayList<HashMap> cities;
+    public ArrayList<HashMap<String, String>> cities;
 
     public BaseGameCities() {
-        this.cities = new ArrayList();
+        this.cities = new ArrayList<>();
     }
 
-    public ArrayList getCities() {
+    public ArrayList<HashMap<String, String>> getCities() {
         return this.cities;
     }
 
-    public ArrayList passCities() {
+    public ArrayList<HashMap<String, String>> passCities() {
         HashMap<String, String> london = new HashMap<>();
         london.put("name", "London");
         london.put("colour", "blue");
@@ -129,5 +129,5 @@ public class BaseGameCities implements Cities{
         this.cities.add(baghdad);
 
         return this.cities;
-    };
+    }
 }

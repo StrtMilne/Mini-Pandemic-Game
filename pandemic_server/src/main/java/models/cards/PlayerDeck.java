@@ -1,6 +1,5 @@
 package models.cards;
 
-import models.cities.BaseGameCities;
 import models.cities.Cities;
 
 import java.util.ArrayList;
@@ -53,12 +52,11 @@ public class PlayerDeck {
             double population = Double.parseDouble(newCity.get("population"));
             CityCard newCard = new CityCard(name, population, colour);
             this.playerCards.add(newCard);
-        };
+        }
     }
 
     public void shuffle() {
         Collections.shuffle(this.playerCards);
     }
-
 
 }
